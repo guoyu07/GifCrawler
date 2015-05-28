@@ -12,13 +12,13 @@ void LinkQueue::addVisitedLink(std::string link)
     {
         saveLink();
     }
-    visitSet.insert(link);
+    visitedSet.insert(link);
 }
 /** 添加没有访问过的路径，等待爬虫访问
  */
 void LinkQueue::addUnvisitedLink(std::string link)
 {
-    unvisitSet.insert(link);
+    unvisitedSet.insert(link);
 }
 /** 删除
  */
