@@ -18,5 +18,4 @@ public:
     DBUtil* getInstance();
     static DBUtil* dbUtil;
 };
-
 #endif // DBUTIL_H
