@@ -7,7 +7,7 @@
 class HtmlParse
 {
 public:
-    std::vector<std::string> getLinks(std::string& html);
+    std::vector<std::string> getUrls(std::string& html);
     std::vector<std::string> getImgSrc(std::string& html);
     HtmlParse();
 };

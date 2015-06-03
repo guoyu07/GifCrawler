@@ -36,7 +36,7 @@ HandleUrl::~HandleUrl()
 }
 /** 处理url，下载文件
  */
-void HandleUrl::downLoadData(std::string link)
+void HandleUrl::downLoadData(std::string url)
 {
     if(CURLE_OK!=curlCode)
     {
@@ -49,7 +49,7 @@ void HandleUrl::downLoadData(std::string link)
         std::cerr<<"get a easy handle error"<<std::endl;
         return ;
     }
-    curl_easy_setopt(handle,CURLOPT_URL,link.c_str());
+    curl_easy_setopt(handle,CURLOPT_URL,url.c_str());
     curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1L);
     curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION,setData);
     data.clear();

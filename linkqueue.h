@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <set>
+#include <queue>
 class LinkQueue
 {
 private:
@@ -12,11 +13,15 @@ private:
     void saveLink();
     bool isRightLink(std::string link);
     bool isVisited(std::string link);
+    void addVisitedLink(std::string link);
 public:
     LinkQueue();
-    void addVisitedLink(std::string link);
     void addUnvisitedLink(std::string link);
     void removeLink(std::string link);
+    bool empty();
+    void pop();
+    bool contains(std::string url);
+    std::string front();
 };
 
 #endif // LINKQUEUE_H

@@ -10,7 +10,7 @@
 class HandleUrl
 {
 private:
-    std::vector<char> data;
+    std::vector<char> data;//保存下载的数据，html或者image
     LinkQueue queue;//url队列
     CURLcode curlCode;//CURL初始化的状态码
     static HandleUrl* const handleUrl;
@@ -20,7 +20,7 @@ public:
     std::vector<char>& getData();
     void saveFile(std::string path);
     static HandleUrl*  getInstance();
-    void downLoadData(std::string link);
+    void downLoadData(std::string url);
 };
 
 #endif // HANDLEURL_H
