@@ -23,7 +23,7 @@ std::vector<std::string> HtmlParse::getUrls(std::string &html,std::string curUrl
             continue;
         if(res[0]=='/')//判断是否是绝对路径
         {
-            res=curUrl.substr(0,curUrl.find_last_of('/'))+res;
+            res=curUrl.substr(0,curUrl.find_first_of('/'))+res;
         }
         for(int i=0;i<rangeUrlVec.size();++i)
         {
@@ -31,10 +31,10 @@ std::vector<std::string> HtmlParse::getUrls(std::string &html,std::string curUrl
             if(res.substr(0,len)==rangeUrlVec[i])//如果在范围内就添加到队列中
             {
                 urls.push_back(res);
+                std::cout<<res<<std::endl;
                 break;
             }
         }
-        std::cout<<res<<std::endl;
     }
     return urls;
 }
