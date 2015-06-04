@@ -3,7 +3,7 @@
 #include "crawler.h"
 int main(int argc,char *argv[])
 {
-    Crawler craler("http://tieba.baidu.com/f?kw=%E7%BE%8E%E5%9B%BE","path");
+    Crawler craler("http://tieba.baidu.com/f?ie=utf-8&kw=gif&fr=search","path");
     craler.crawling();
     return 0;
 }

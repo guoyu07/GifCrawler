@@ -76,3 +76,4 @@ bool LinkQueue::isVisited(std::string link)
 {
 
 }
+
