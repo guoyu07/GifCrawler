@@ -1,12 +1,27 @@
 #include "crawler.h"
 
-Crawler::Crawler(std::string url,std::string filePath)
+Crawler::Crawler(std::string filePath):imgUtil(filePath)
 {
-    queue.addUnvisitedLink(url);
-    std::fstream file("range.txt",std::ios::in);
+    std::fstream urlFile("url.txt",std::ios::in);
+    std::string url;
+    if(!urlFile)
+    {
+        std::cerr<<"open url.txt error"<<std::endl;
+        return ;
+    }
+    while (getline(urlFile,url)) {
+        queue.addUnvisitedLink(url);
+    }
+
+    std::fstream rangeFile("range.txt",std::ios::in);
+    if(!rangeFile)
+    {
+        std::cerr<<"open range.txt error"<<std::endl;
+        return ;
+    }
     std::string temp;
     std::vector<std::string> range;
-    while (getline(file,temp)) {
+    while (getline(rangeFile,temp)) {
         range.push_back(temp);
     }
     parse.setRange(range);
@@ -32,6 +47,13 @@ void Crawler::crawling()
                 }
             }
             std::cout<<url<<std::endl;
+            std::vector<std::string> imgs=parse.getImgSrc(html);//保存网页内的动态图片
+            for(auto src:imgs)
+            {
+                handleUrl->downLoadData(src);
+                imgUtil.saveImg(handleUrl->getData());
+                std::cout<<"   IMG:"<<src<<std::endl;
+            }
         }
         queue.pop();
     }

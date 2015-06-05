@@ -1,8 +1,8 @@
 #include "linkqueue.h"
 
-LinkQueue::LinkQueue():MAX_SIZE(1000)
+LinkQueue::LinkQueue():MAX_SIZE(10)
 {
-
+    db=DBUtil::getInstance();
 }
 /** 获得头部链接
  */
@@ -17,6 +17,7 @@ void LinkQueue::pop()
     std::string url=*unvisitedSet.begin();
     visitedSet.insert(url);
     unvisitedSet.erase(url);
+    addVisitedLink(url);
 }
 /** 检测队列是否为空
  */
@@ -29,6 +30,7 @@ bool LinkQueue::empty()
  */
 void LinkQueue::addVisitedLink(std::string link)
 {
+    int i=0;
     if(visitedSet.size()>=MAX_SIZE)
     {
         saveLink();
@@ -37,9 +39,14 @@ void LinkQueue::addVisitedLink(std::string link)
 }
 /** 添加没有访问过的路径，等待爬虫访问
  */
-void LinkQueue::addUnvisitedLink(std::string link)
+void LinkQueue::addUnvisitedLink(std::string url)
 {
-    unvisitedSet.insert(link);
+    if(visitedSet.count(url)>0)//如果已经访问过，不在重新插入
+        return ;
+    std::string temp=db->select(url);
+    if(temp.size()>0)//如果已经访问过，并写入数据库，就不在插入
+        return ;
+    unvisitedSet.insert(url);
 }
 /** 队列是否含有某个url
  */
@@ -62,7 +69,11 @@ void LinkQueue::removeLink(std::string link)
  */
 void LinkQueue::saveLink()
 {
-
+    for(auto url:visitedSet)
+    {
+        db->add(url,"1");
+    }
+    visitedSet.clear();
 }
 /** 使用正则表达式判断一个url是否合法
  */

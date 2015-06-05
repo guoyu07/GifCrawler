@@ -1,7 +1,7 @@
 #include "dbutil.h"
 
 DBUtil* DBUtil::dbUtil=NULL;
-DBUtil::DBUtil():db(NULL,0),count(0),MAX_COUNT(3000)
+DBUtil::DBUtil():db(NULL,0),count(0),MAX_COUNT(30)
 {
     db.open(NULL,"my.db",NULL,DB_BTREE,DB_CREATE,0);
 }

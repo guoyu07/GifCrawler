@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     linkqueue.cpp \
     htmlparse.cpp \
     dbutil.cpp \
-    handleurl.cpp
+    handleurl.cpp \
+    imgutil.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
@@ -24,7 +25,8 @@ HEADERS += \
     linkqueue.h \
     htmlparse.h \
     dbutil.h \
-    handleurl.h
+    handleurl.h \
+    imgutil.h
 
 
 
