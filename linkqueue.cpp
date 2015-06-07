@@ -59,12 +59,6 @@ bool LinkQueue::contains(std::string url)
     return false;
 }
 
-/** 删除
- */
-void LinkQueue::removeLink(std::string link)
-{
-
-}
 /** 把访问过的路径写入berkeley db
  */
 void LinkQueue::saveLink()
@@ -75,16 +69,5 @@ void LinkQueue::saveLink()
     }
     visitedSet.clear();
 }
-/** 使用正则表达式判断一个url是否合法
- */
-bool LinkQueue::isRightLink(std::string link)
-{
 
-}
-/** 判断一个url是否已经访问过
- */
-bool LinkQueue::isVisited(std::string link)
-{
-
-}
 

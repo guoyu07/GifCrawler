@@ -10,9 +10,9 @@ Crawler::Crawler(std::string filePath):imgUtil(filePath)
         return ;
     }
     while (getline(urlFile,url)) {
+        std::cout<<url<<std::endl;
         queue.addUnvisitedLink(url);
     }
-
     std::fstream rangeFile("range.txt",std::ios::in);
     if(!rangeFile)
     {
@@ -52,7 +52,6 @@ void Crawler::crawling()
             {
                 handleUrl->downLoadData(src);
                 imgUtil.saveImg(handleUrl->getData());
-                std::cout<<"   IMG:"<<src<<std::endl;
             }
         }
         queue.pop();

@@ -250,6 +250,8 @@ string md5file(const char* filename){
 	return res;
 }
 
+#include <fstream>
+#include <iostream>
 string md5file(std::FILE* file){
 
 	MD5_CTX c;
@@ -258,9 +260,9 @@ string md5file(std::FILE* file){
 	char buff[BUFSIZ];
 	unsigned char out[16];
 	size_t len = 0;
-	while( ( len = std::fread(buff ,sizeof(char), BUFSIZ, file) ) > 0) {
-		MD5_Update(&c, buff, len);
-	}
+    while( ( len = std::fread(buff ,sizeof(char), BUFSIZ, file) ) > 0) {
+        MD5_Update(&c, buff, len);
+    }
 	MD5_Final(out, &c);
 
 	string res;

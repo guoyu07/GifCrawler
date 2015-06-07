@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     htmlparse.cpp \
     dbutil.cpp \
     handleurl.cpp \
-    imgutil.cpp
+    imgutil.cpp \
+    md5.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
@@ -26,7 +27,8 @@ HEADERS += \
     htmlparse.h \
     dbutil.h \
     handleurl.h \
-    imgutil.h
+    imgutil.h \
+    md5.h
 
 
 

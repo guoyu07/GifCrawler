@@ -48,9 +48,8 @@ std::vector<std::string> HtmlParse::getImgSrc(std::string &html)
     std::string res;int count=0;
     while(re2::RE2::FindAndConsume(&input, re, &res) ){
         imgs.push_back(res);
-        std::cout<<res<<std::endl;
-        ++count;
     }
+    return imgs;
 }
 /** url是否合法
  */
