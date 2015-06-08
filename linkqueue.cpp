@@ -41,7 +41,9 @@ void LinkQueue::addVisitedLink(std::string link)
  */
 void LinkQueue::addUnvisitedLink(std::string url)
 {
-    if(visitedSet.count(url)>0)//如果已经访问过，不在重新插入
+    if(unvisitedSet.count(url)!=0)
+        return ;
+    if(visitedSet.count(url)!=0)
         return ;
     std::string temp=db->select(url);
     if(temp.size()>0)//如果已经访问过，并写入数据库，就不在插入
@@ -69,5 +71,11 @@ void LinkQueue::saveLink()
     }
     visitedSet.clear();
 }
-
+bool LinkQueue::isVisited(std::string url)
+{
+    if(db->select(url).size()>0)
+        return true;
+    else
+        return false;
+}
 

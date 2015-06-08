@@ -17,7 +17,10 @@ void DBUtil::add(std::string key, std::string data)
     Dbt dbData(&data,data.length());
     int ret=db.put(NULL,&dbKey,&dbData,DB_NOOVERWRITE);
     if(ret==DB_KEYEXIST)//如果KEY已经存在的话，返回DB_KEYEXIST
-        std::cout<<key<<" is exist,add data fail"<<std::endl;
+    {
+
+    }
+//        std::cout<<key<<" is exist,add data fail"<<std::endl;
     else
     {
         ++count;

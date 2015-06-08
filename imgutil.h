@@ -15,7 +15,7 @@ class ImgUtil
 public:
     ImgUtil(std::string);
     ~ImgUtil();
-    void saveImg(std::vector<char>* img) const;
+    void saveImg(std::vector<char>* img,std::string path) const;
 };
 
 #endif // IMGUTIL_H

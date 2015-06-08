@@ -13,10 +13,10 @@ private:
     DBUtil* db;
     void saveLink();
 //    bool isRightLink(std::string link);
-    bool isVisited(std::string link);
     void addVisitedLink(std::string link);
 public:
     LinkQueue();
+    bool isVisited(std::string url);
     void addUnvisitedLink(std::string link);
 //    void removeLink(std::string link);
     bool empty();

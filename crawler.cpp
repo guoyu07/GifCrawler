@@ -10,7 +10,6 @@ Crawler::Crawler(std::string filePath):imgUtil(filePath)
         return ;
     }
     while (getline(urlFile,url)) {
-        std::cout<<url<<std::endl;
         queue.addUnvisitedLink(url);
     }
     std::fstream rangeFile("range.txt",std::ios::in);
@@ -41,17 +40,15 @@ void Crawler::crawling()
             std::vector<std::string> urls=parse.getUrls(html,url);
             for(auto url:urls)
             {
-                if(!queue.contains(url))
-                {
-                    queue.addUnvisitedLink(url);
-                }
+                queue.addUnvisitedLink(url);
             }
             std::cout<<url<<std::endl;
             std::vector<std::string> imgs=parse.getImgSrc(html);//保存网页内的动态图片
             for(auto src:imgs)
             {
                 handleUrl->downLoadData(src);
-                imgUtil.saveImg(handleUrl->getData());
+//                                std::cout<<src<<std::endl;
+                imgUtil.saveImg(handleUrl->getData(),src);
             }
         }
         queue.pop();

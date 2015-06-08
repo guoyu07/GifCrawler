@@ -14,7 +14,6 @@ ImgUtil::~ImgUtil()
  */
 bool ImgUtil::isValid(std::vector<char> *img) const
 {
-    return true;
     if((*img)[0]=='G'&&(*img)[1]=='I'&&(*img)[2]=='F')
         return true;
     else
@@ -24,32 +23,25 @@ bool ImgUtil::isValid(std::vector<char> *img) const
 //#include <openssl/md5.h>
 /** 保存动态图片
  */
-void ImgUtil::saveImg(std::vector<char> *img) const
+void ImgUtil::saveImg(std::vector<char> *img,std::string path) const
 {
     if(isValid(img))
     {
-        std::string md5=getImgMd5(img);
-        std::cout<<"-----------------------------------------------------------------"<<std::endl;
-        std::cout<<md5;
-        std::cout<<"-----------------------------------------------------------------"<<std::endl;
-        std::cout<<"*****************************************************************"<<std::endl;
-        std::string str(img->begin(),img->end());
-        std::cout<<str<<std::endl;
-        std::cout<<"*****************************************************************"<<std::endl;
-        std::string temp=db->select(md5);//查看文件是否保存
-        std::fstream file(dir+"/"+md5+".gif",std::ios::out);
-        if(temp.size()>0)
-            return ;
+//        std::string md5=getImgMd5(img);
+        std::string md5Str=md5(path);
+//        std::cout<<md5Str<<std::endl;
+        std::string temp=db->select(md5Str);//查看文件是否保存
+        std::fstream file(dir+"/"+md5Str+".gif",std::ios::out);
         if(!file)
         {
-            std::cerr<<"open "<<md5<<" error"<<std::endl;
+            std::cerr<<"open "<<md5Str<<" error"<<std::endl;
             return ;
         }
         for(auto c:*img)
             file.put(c);
         file.close();
-        db->add(md5,"1");
-        std::cout<<" ---- IMG:svae "<<md5<<" success"<<std::endl;
+        db->add(md5Str,"1");
+//        std::cout<<" ---- IMG:svae "<<md5Str<<" success"<<std::endl;
         img->clear();
     }
 }
@@ -57,6 +49,5 @@ void ImgUtil::saveImg(std::vector<char> *img) const
  */
 std::string ImgUtil::getImgMd5(std::vector<char> *img) const
 {
-    std::string imgStr(img->begin(),img->end());
-    return md5(imgStr);
+    return md5vector(img);
 }

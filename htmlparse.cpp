@@ -31,7 +31,7 @@ std::vector<std::string> HtmlParse::getUrls(std::string &html,std::string curUrl
             if(res.substr(0,len)==rangeUrlVec[i])//如果在范围内就添加到队列中
             {
                 urls.push_back(res);
-                std::cout<<res<<std::endl;
+//                std::cout<<res<<std::endl;
                 break;
             }
         }
@@ -43,6 +43,7 @@ std::vector<std::string> HtmlParse::getUrls(std::string &html,std::string curUrl
 std::vector<std::string> HtmlParse::getImgSrc(std::string &html)
 {
     std::vector<std::string> imgs;
+//    RE2 re("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
     RE2 re("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
     re2::StringPiece input(html);
     std::string res;int count=0;
