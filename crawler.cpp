@@ -51,6 +51,6 @@ void Crawler::crawling()
                 imgUtil.saveImg(handleUrl->getData(),src);
             }
         }
-        queue.pop();
+        queue.pop(url);
     }
 }

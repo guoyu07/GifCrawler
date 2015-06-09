@@ -25,6 +25,8 @@ bool ImgUtil::isValid(std::vector<char> *img) const
  */
 void ImgUtil::saveImg(std::vector<char> *img,std::string path) const
 {
+    if(img->size()<1024*10)//如果小于10KB的话不保存
+        return ;
     if(isValid(img))
     {
 //        std::string md5=getImgMd5(img);

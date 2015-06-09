@@ -12,12 +12,18 @@ std::string LinkQueue::front()
 }
 /** 出队
  */
-void LinkQueue::pop()
+void LinkQueue::pop(std::string url)
 {
-    std::string url=*unvisitedSet.begin();
-    visitedSet.insert(url);
-    unvisitedSet.erase(url);
+//    if(visitedSet.size()>=MAX_SIZE)
+//    {
+//        for(auto url:visitedSet)
+//        {
+//            db->add(url,"1");
+//        }
+//        visitedSet.clear();
+//    }
     addVisitedLink(url);
+    unvisitedSet.erase(url);
 }
 /** 检测队列是否为空
  */
@@ -30,10 +36,13 @@ bool LinkQueue::empty()
  */
 void LinkQueue::addVisitedLink(std::string link)
 {
-    int i=0;
     if(visitedSet.size()>=MAX_SIZE)
     {
-        saveLink();
+        for(auto url:visitedSet)
+        {
+            db->add(url,"1");
+        }
+        visitedSet.clear();
     }
     visitedSet.insert(link);
 }
@@ -41,9 +50,9 @@ void LinkQueue::addVisitedLink(std::string link)
  */
 void LinkQueue::addUnvisitedLink(std::string url)
 {
-    if(unvisitedSet.count(url)!=0)
+    if(unvisitedSet.find(url)!=unvisitedSet.end())
         return ;
-    if(visitedSet.count(url)!=0)
+    if(visitedSet.find(url)!=visitedSet.end())
         return ;
     std::string temp=db->select(url);
     if(temp.size()>0)//如果已经访问过，并写入数据库，就不在插入
@@ -61,16 +70,7 @@ bool LinkQueue::contains(std::string url)
     return false;
 }
 
-/** 把访问过的路径写入berkeley db
- */
-void LinkQueue::saveLink()
-{
-    for(auto url:visitedSet)
-    {
-        db->add(url,"1");
-    }
-    visitedSet.clear();
-}
+
 bool LinkQueue::isVisited(std::string url)
 {
     if(db->select(url).size()>0)

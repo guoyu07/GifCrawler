@@ -2,7 +2,7 @@
 
 HtmlParse::HtmlParse()
 {
-
+    
 }
 /** 获得html中的所有的链接
  */
@@ -43,33 +43,13 @@ std::vector<std::string> HtmlParse::getUrls(std::string &html,std::string curUrl
 std::vector<std::string> HtmlParse::getImgSrc(std::string &html)
 {
     std::vector<std::string> imgs;
-    //    RE2 re("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
-    ////    RE2 re("<img src=\"(.+?)\".*?>");
-    //    re2::StringPiece input(html);
-    //    std::string res;int count=0;
-    //    while(re2::RE2::FindAndConsume(&input, re, &res) ){
-    //        imgs.push_back(res);
-    //    }
-    std::string::size_type imgPos=0;
-    std::string::size_type temp=0;
-    while (imgPos!=std::string::npos) {
-        imgPos=html.find("<img",imgPos);
-        std::string::size_type imgEndPos=html.find(">",imgPos);
-        std::string imgStr=html.substr(imgPos,imgEndPos);
-        std::string::size_type httpPos=0;
-        while (httpPos!=std::string::npos) {
-            httpPos=imgStr.find("http",httpPos);
-            std::string::size_type endPos=imgStr.find("\"",httpPos);
-            if(endPos!=std::string::npos)
-            {
-                std::string url=imgStr.substr(httpPos,endPos);
-                imgs.push_back(url);
-            }
-            httpPos=endPos;
-        }
-        imgPos=imgEndPos;
+    RE2 re("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
+    //    RE2 re("<img src=\"(.+?)\".*?>");
+    re2::StringPiece input(html);
+    std::string res;int count=0;
+    while(re2::RE2::FindAndConsume(&input, re, &res) ){
+        imgs.push_back(res);
     }
-    return imgs;
 }
 /** url是否合法
  */

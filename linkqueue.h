@@ -11,19 +11,15 @@ private:
     std::set<std::string> visitedSet;//已经访问过的url
     std::set<std::string> unvisitedSet;//没有访问过的url
     DBUtil* db;
-    void saveLink();
-//    bool isRightLink(std::string link);
     void addVisitedLink(std::string link);
 public:
     LinkQueue();
     bool isVisited(std::string url);
     void addUnvisitedLink(std::string link);
-//    void removeLink(std::string link);
     bool empty();
-    void pop();
+    void pop(std::string url);
     bool contains(std::string url);
     std::string front();
-//    void setRange(std::set<std::string> range);
 };
 
 #endif // LINKQUEUE_H

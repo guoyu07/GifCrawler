@@ -54,9 +54,11 @@ void HandleUrl::downLoadData(std::string url)
         std::cerr<<"get a easy handle error"<<std::endl;
         return ;
     }
+    //使用curl下载数据
     curl_easy_setopt(handle,CURLOPT_URL,url.c_str());
     curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1L);
     curl_easy_setopt(handle,CURLOPT_WRITEFUNCTION,setData);
+    curl_easy_setopt(handle, CURLOPT_TIMEOUT, 5);
     data->clear();
     curl_easy_perform(handle);
     curl_easy_cleanup(handle);
