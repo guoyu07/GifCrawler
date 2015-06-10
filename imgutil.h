@@ -3,19 +3,18 @@
 
 #include <iostream>
 #include <fstream>
-#include "md5.h"
-#include "dbutil.h"
+#include <set>
 #include <vector>
+#include "md5.h"
 class ImgUtil
 {
+    std::set<std::string> imgSet;
     std::string dir;
-    DBUtil* db;
     bool isValid(std::vector<char>* img) const;
-    std::string getImgMd5(std::vector<char>* img) const;
 public:
     ImgUtil(std::string);
     ~ImgUtil();
-    void saveImg(std::vector<char>* img,std::string path) const;
+    void saveImg(std::vector<char>* img) ;
 };
 
 #endif // IMGUTIL_H

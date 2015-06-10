@@ -8,7 +8,6 @@ SOURCES += main.cpp \
     crawler.cpp \
     linkqueue.cpp \
     htmlparse.cpp \
-    dbutil.cpp \
     handleurl.cpp \
     imgutil.cpp \
     md5.cpp
@@ -25,7 +24,6 @@ HEADERS += \
     crawler.h \
     linkqueue.h \
     htmlparse.h \
-    dbutil.h \
     handleurl.h \
     imgutil.h \
     md5.h
@@ -59,15 +57,3 @@ else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../.
 else:unix: PRE_TARGETDEPS += $$PWD/../../../../../usr/local/Cellar/re2/20150501/lib/libre2.a
 
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/berkeley-db/lib/release/ -ldb_cxx
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/berkeley-db/lib/debug/ -ldb_cxx
-else:unix: LIBS += -L$$PWD/berkeley-db/lib/ -ldb_cxx
-
-INCLUDEPATH += $$PWD/berkeley-db/include
-DEPENDPATH += $$PWD/berkeley-db/include
-
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/berkeley-db/lib/release/libdb_cxx.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/berkeley-db/lib/debug/libdb_cxx.a
-else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/berkeley-db/lib/release/db_cxx.lib
-else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/berkeley-db/lib/debug/db_cxx.lib
-else:unix: PRE_TARGETDEPS += $$PWD/berkeley-db/lib/libdb_cxx.a

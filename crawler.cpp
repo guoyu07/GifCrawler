@@ -33,22 +33,27 @@ void Crawler::crawling()
         //验证url的和法性
         if(parse.isValid(url))
         {
-            handleUrl->downLoadData(url);
-            //获得页面的html
-            std::string html(handleUrl->getData()->begin(),handleUrl
-                             ->getData()->end());
-            std::vector<std::string> urls=parse.getUrls(html,url);
-            for(auto url:urls)
+            try//发生异常后继续进行循环
             {
-                queue.addUnvisitedLink(url);
-            }
-            std::cout<<url<<std::endl;
-            std::vector<std::string> imgs=parse.getImgSrc(html);//保存网页内的动态图片
-            for(auto src:imgs)
+                handleUrl->downLoadData(url);
+                //获得页面的html
+                std::string html(handleUrl->getData()->begin(),handleUrl
+                                 ->getData()->end());
+                std::vector<std::string> urls=parse.getUrls(html,url);
+                for(auto url:urls)
+                {
+                    queue.addUnvisitedLink(url);
+                }
+                std::cout<<url<<std::endl;
+                std::vector<std::string> imgs=parse.getImgSrc(html);//保存网页内的动态图片
+                for(auto src:imgs)
+                {
+                    handleUrl->downLoadData(src);
+                    imgUtil.saveImg(handleUrl->getData());
+                }
+            }catch (std::exception &e)
             {
-                handleUrl->downLoadData(src);
-//                                std::cout<<src<<std::endl;
-                imgUtil.saveImg(handleUrl->getData(),src);
+                std::cerr<<e.what()<<std::endl;
             }
         }
         queue.pop(url);
