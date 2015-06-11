@@ -9,11 +9,10 @@ HtmlParse::HtmlParse()
 std::vector<std::string> HtmlParse::getUrls(std::string &html,std::string curUrl)
 {
     std::vector<std::string> urls;
-//    html=html.substr(html.find_first_of("<body"),html.find_last_of("</body"));//选出body中的元素
     RE2 re("<a(?: [^>]*)+href=([^ >]*)(?: [^>]*)*>");
     re2::StringPiece input(html);
     std::string res; int i=0;
-    while(re2::RE2::FindAndConsume(&input, re, &res) ){++i;
+    while(re2::RE2::FindAndConsume(&input, re, &res) ){
         while (res.find('"')!=std::string::npos) {//去除引号
             std::string::size_type pos=res.find('"');
             res.erase(pos,pos+1);
@@ -34,7 +33,6 @@ std::vector<std::string> HtmlParse::getUrls(std::string &html,std::string curUrl
             }
         }
     }
-    std::cout<<i<<std::endl;
     return urls;
 }
 /** 获得页面所有图片的地址

@@ -19,7 +19,6 @@ bool ImgUtil::isValid(std::vector<char> *img) const
         return false;
 }
 
-//#include <openssl/md5.h>
 /** 保存动态图片
  */
 void ImgUtil::saveImg(std::vector<char> *img)
